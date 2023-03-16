@@ -5,7 +5,7 @@ enum ApiType {
     case getPokemonInfo(id: String)
     
     var baseURL: String {
-        return "https://pokeapi.co/api/v2/pokemon"
+        return "https://pokeapi.co/api/v2/pokemon/"
     }
     
     var headers: [String : String] {
@@ -15,7 +15,7 @@ enum ApiType {
     var path: String {
         switch self {
         case .getPokemonList: return self.baseURL
-        case .getPokemonInfo(let id): return "/\(id)/ "
+        case .getPokemonInfo(let id): return "\(id)/"
         }
     }
     
@@ -36,6 +36,16 @@ class ApiManager {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data, let pokemonList = try? JSONDecoder().decode(PokemonList.self, from: data) {
                 print(pokemonList.results?.first?.name)
+            }
+        }
+        task.resume()
+    }
+    
+    func getPokemonInfo(pokemonId: Int, completion: @escaping (PokemonInfo) -> Void) {
+        let request = ApiType.getPokemonInfo(id: String(pokemonId)).request
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data, let pokemonInfo = try? JSONDecoder().decode(PokemonInfo.self, from: data) {
+                print(pokemonInfo.name)
             }
         }
         task.resume()
