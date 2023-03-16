@@ -14,9 +14,10 @@
 		D9DA289729C20DEE0009183A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9DA289529C20DEE0009183A /* LaunchScreen.storyboard */; };
 		D9DA289F29C21BB90009183A /* PokemonList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DA289E29C21BB90009183A /* PokemonList.swift */; };
 		D9DA28A129C225200009183A /* PokemonInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DA28A029C225200009183A /* PokemonInfo.swift */; };
-		D9DA28A629C2F7F90009183A /* PocemonListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DA28A529C2F7F90009183A /* PocemonListPresenter.swift */; };
+		D9DA28A629C2F7F90009183A /* PokemonListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DA28A529C2F7F90009183A /* PokemonListPresenter.swift */; };
 		D9DA28AC29C2FC910009183A /* PokemonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DA28AB29C2FC910009183A /* PokemonTableViewCell.swift */; };
 		D9DA28B029C3069E0009183A /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DA28AF29C3069E0009183A /* UIViewExtension.swift */; };
+		D9DA28B329C367D10009183A /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DA28B229C367D10009183A /* ApiManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,9 +30,10 @@
 		D9DA289829C20DEE0009183A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9DA289E29C21BB90009183A /* PokemonList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonList.swift; sourceTree = "<group>"; };
 		D9DA28A029C225200009183A /* PokemonInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonInfo.swift; sourceTree = "<group>"; };
-		D9DA28A529C2F7F90009183A /* PocemonListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocemonListPresenter.swift; sourceTree = "<group>"; };
+		D9DA28A529C2F7F90009183A /* PokemonListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListPresenter.swift; sourceTree = "<group>"; };
 		D9DA28AB29C2FC910009183A /* PokemonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonTableViewCell.swift; sourceTree = "<group>"; };
 		D9DA28AF29C3069E0009183A /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		D9DA28B229C367D10009183A /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		D9DA288929C20DE90009183A /* PokemonsTracker */ = {
 			isa = PBXGroup;
 			children = (
+				D9DA28B129C367A20009183A /* ServiceLayer */,
 				D9DA28AE29C306840009183A /* Extensions */,
 				D9DA28A429C237110009183A /* PokemonListModule */,
 				D9DA28A329C231C00009183A /* SystemFiles */,
@@ -114,7 +117,7 @@
 		D9DA28A829C2FAA10009183A /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				D9DA28A529C2F7F90009183A /* PocemonListPresenter.swift */,
+				D9DA28A529C2F7F90009183A /* PokemonListPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -133,6 +136,14 @@
 				D9DA28AF29C3069E0009183A /* UIViewExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D9DA28B129C367A20009183A /* ServiceLayer */ = {
+			isa = PBXGroup;
+			children = (
+				D9DA28B229C367D10009183A /* ApiManager.swift */,
+			);
+			path = ServiceLayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,11 +217,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9DA288F29C20DE90009183A /* PokemonListViewController.swift in Sources */,
+				D9DA28B329C367D10009183A /* ApiManager.swift in Sources */,
 				D9DA28AC29C2FC910009183A /* PokemonTableViewCell.swift in Sources */,
 				D9DA28A129C225200009183A /* PokemonInfo.swift in Sources */,
 				D9DA289F29C21BB90009183A /* PokemonList.swift in Sources */,
 				D9DA288B29C20DE90009183A /* AppDelegate.swift in Sources */,
-				D9DA28A629C2F7F90009183A /* PocemonListPresenter.swift in Sources */,
+				D9DA28A629C2F7F90009183A /* PokemonListPresenter.swift in Sources */,
 				D9DA28B029C3069E0009183A /* UIViewExtension.swift in Sources */,
 				D9DA288D29C20DE90009183A /* SceneDelegate.swift in Sources */,
 			);

@@ -14,7 +14,5 @@ class PokemonListPresenter: PokemonListPresenterProtocol {
     required init(view: PokemonListViewProtocol) {
         self.view = view
     }
-
-    
     
 }

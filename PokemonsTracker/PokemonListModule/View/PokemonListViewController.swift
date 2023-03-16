@@ -12,6 +12,7 @@ class PokemonListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ApiManager.shared.getPokemonList { pokemons in }
     }
 
     private func setupTableView() {
