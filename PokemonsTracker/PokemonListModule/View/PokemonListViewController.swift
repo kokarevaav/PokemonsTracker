@@ -54,7 +54,7 @@ extension PokemonListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PokemonTableViewCell.reuseId, for: indexPath) as? PokemonTableViewCell else {return UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PokemonTableViewCell.reuseId, for: indexPath) as? PokemonTableViewCell else { return UITableViewCell() }
         cell.titleLabel.text = presenter.getPokemonForCell(index: indexPath.row).name
         return cell
     }
@@ -64,7 +64,7 @@ extension PokemonListViewController: UITableViewDataSource {
 
 extension PokemonListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let pokemonInfoViewController = ModuleBuilder.createPokemonInfoModule(id: indexPath.row)
+        let pokemonInfoViewController = ModuleBuilder.createPokemonInfoModule(id: indexPath.row + 1)
         navigationController?.pushViewController(pokemonInfoViewController, animated: true)
     }
 }

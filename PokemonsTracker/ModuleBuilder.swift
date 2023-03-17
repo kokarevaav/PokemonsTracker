@@ -29,6 +29,7 @@ class ModuleBuilder: Buider {
         let pokemonInfoPresenter = PokemonInfoPresenter(view: pokemonInfoView)
         ApiManager.shared.getPokemonInfo(pokemonId: id) { data in
             guard let data = data else {
+                // MARK: - add
                 return
             }
             pokemonInfoPresenter.pokemonInfo = data

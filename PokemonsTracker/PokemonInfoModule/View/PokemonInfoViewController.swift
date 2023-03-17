@@ -9,9 +9,15 @@ class PokemonInfoViewController: UIViewController {
     
     var presenter: PokemonInfoPresenterProtocol!
     
-    let pokemonImage: UIView = {
-        let image = UIView()
-        image.backgroundColor = .black
+    let imageBackgroundView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 20
+        view.backgroundColor = UIColor(named: "CellColor")
+        return view
+    }()
+    
+    let pokemonImage: UIImageView = {
+        let image = UIImageView()
         return image
     }()
     
@@ -48,9 +54,9 @@ class PokemonInfoViewController: UIViewController {
         return label
     }()
     
-    let widthLabel: UILabel = {
+    let weigthLabel: UILabel = {
         let label = UILabel()
-        label.text = "Width: "
+        label.text = "Weigth: "
         label.textColor = UIColor(named: "TextColor")
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         return label
@@ -64,9 +70,10 @@ class PokemonInfoViewController: UIViewController {
     }
     
     private func setupImage() {
-        view.addSubview(pokemonImage)
+        view.addSubview(imageBackgroundView)
+        imageBackgroundView.addSubview(pokemonImage)
         
-        pokemonImage.setPosition(top: view.safeAreaLayoutGuide.topAnchor,
+        imageBackgroundView.setPosition(top: view.safeAreaLayoutGuide.topAnchor,
                                  left: view.leftAnchor,
                                  bottom: nil,
                                  right: view.rightAnchor,
@@ -74,6 +81,10 @@ class PokemonInfoViewController: UIViewController {
                                  paddingLeft: 40,
                                  paddingRight: 40,
                                  height: 280)
+        pokemonImage.setPosition(top: imageBackgroundView.topAnchor,
+                                 left: imageBackgroundView.leftAnchor,
+                                 bottom: imageBackgroundView.bottomAnchor,
+                                 right: imageBackgroundView.rightAnchor)
     }
     
     private func setupLabels() {
@@ -81,14 +92,13 @@ class PokemonInfoViewController: UIViewController {
         view.addSubview(nameLabel)
         view.addSubview(typeLabel)
         view.addSubview(heightLabel)
-        view.addSubview(widthLabel)
+        view.addSubview(weigthLabel)
         
         headerLabel.setPosition(top: pokemonImage.bottomAnchor,
                                 left: view.leftAnchor,
                                 bottom: nil,
                                 right: view.rightAnchor,
                                 paddingTop: 20)
-        
         nameLabel.setPosition(top: headerLabel.bottomAnchor,
                               left: view.leftAnchor,
                               bottom: nil,
@@ -107,18 +117,24 @@ class PokemonInfoViewController: UIViewController {
                                 right: view.rightAnchor,
                                 paddingTop: 20,
                                 paddingLeft: 12)
-        widthLabel.setPosition(top: heightLabel.bottomAnchor,
-                               left: view.leftAnchor,
-                               bottom: nil,
-                               right: view.rightAnchor,
-                               paddingTop: 20,
-                               paddingLeft: 12)
-        
+        weigthLabel.setPosition(top: heightLabel.bottomAnchor,
+                                left: view.leftAnchor,
+                                bottom: nil,
+                                right: view.rightAnchor,
+                                paddingTop: 20,
+                                paddingLeft: 12)
     }
     
 }
 
 extension PokemonInfoViewController: PokemonInfoViewProtocol {
     func reloadView() {
+        DispatchQueue.main.async {
+            self.pokemonImage.load(url: self.presenter.getImageURL())
+            self.nameLabel.text! += "         \(self.presenter.getPokemonName())"
+            self.typeLabel.text! += "         \(self.presenter.getPokemonType())"
+            self.heightLabel.text! += "         \(self.presenter.getPokemonHeight()) cm"
+            self.weigthLabel.text! += "         \(self.presenter.getPokemonWeigth()) kg"
+        }
     }
 }

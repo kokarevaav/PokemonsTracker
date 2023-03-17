@@ -5,6 +5,7 @@ struct PokemonInfo: Codable {
     let height: Int?
     let id: Int?
     let name: String?
+    let sprites: Sprites?
     let types: [TypeElement]?
     let weight: Int?
 }
