@@ -3,6 +3,7 @@ import UIKit
 
 protocol Buider {
     static func createPokemonListModule() -> UIViewController
+    static func createPokemonInfoModule(id: Int) -> UIViewController
 }
 
 class ModuleBuilder: Buider {
@@ -21,5 +22,19 @@ class ModuleBuilder: Buider {
         }
         pokemonListView.presenter = pokemonListPresenter
         return pokemonListView
+    }
+    
+    static func createPokemonInfoModule(id: Int) -> UIViewController {
+        let pokemonInfoView = PokemonInfoViewController()
+        let pokemonInfoPresenter = PokemonInfoPresenter(view: pokemonInfoView)
+        ApiManager.shared.getPokemonInfo(pokemonId: id) { data in
+            guard let data = data else {
+                return
+            }
+            pokemonInfoPresenter.pokemonInfo = data
+            pokemonInfoView.reloadView()
+        }
+        pokemonInfoView.presenter = pokemonInfoPresenter
+        return pokemonInfoView
     }
 }

@@ -3,6 +3,7 @@ import Foundation
 protocol PokemonListPresenterProtocol: AnyObject {
     init(view: PokemonListViewProtocol)
     func getPokemonList() -> [Result]
+    func getPokemonForCell(index: Int) -> Result
 }
 
 class PokemonListPresenter: PokemonListPresenterProtocol {
@@ -16,5 +17,9 @@ class PokemonListPresenter: PokemonListPresenterProtocol {
     
     func getPokemonList() -> [Result] {
         return self.pokemonList
+    }
+    
+    func getPokemonForCell(index: Int) -> Result {
+        return pokemonList[index]
     }
 }

@@ -17,7 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         let pokemonListVC = ModuleBuilder.createPokemonListModule()
-        window?.rootViewController = pokemonListVC
+        let navigationController = UINavigationController(rootViewController: pokemonListVC)
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 

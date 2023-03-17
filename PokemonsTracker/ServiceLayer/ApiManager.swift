@@ -44,11 +44,14 @@ class ApiManager {
         task.resume()
     }
     
-    func getPokemonInfo(pokemonId: Int, completion: @escaping (PokemonInfo) -> Void) {
+    func getPokemonInfo(pokemonId: Int, completion: @escaping (PokemonInfo?) -> Void) {
         let request = ApiType.getPokemonInfo(id: String(pokemonId)).request
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data, let pokemonInfo = try? JSONDecoder().decode(PokemonInfo.self, from: data) {
-                print(pokemonInfo.name)
+                completion(pokemonInfo)
+            }
+            else {
+                completion(nil)
             }
         }
         task.resume()
