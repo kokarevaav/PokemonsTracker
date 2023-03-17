@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D958432629C4637300728063 /* ModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D958432529C4637300728063 /* ModuleBuilder.swift */; };
 		D9DA288B29C20DE90009183A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DA288A29C20DE90009183A /* AppDelegate.swift */; };
 		D9DA288D29C20DE90009183A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DA288C29C20DE90009183A /* SceneDelegate.swift */; };
 		D9DA288F29C20DE90009183A /* PokemonListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DA288E29C20DE90009183A /* PokemonListViewController.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D958432529C4637300728063 /* ModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleBuilder.swift; sourceTree = "<group>"; };
 		D9DA288729C20DE90009183A /* PokemonsTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokemonsTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9DA288A29C20DE90009183A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9DA288C29C20DE90009183A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				D9DA28A229C231960009183A /* Resources */,
 				D9DA289E29C21BB90009183A /* PokemonList.swift */,
 				D9DA28A029C225200009183A /* PokemonInfo.swift */,
+				D958432529C4637300728063 /* ModuleBuilder.swift */,
 			);
 			path = PokemonsTracker;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 				D9DA288F29C20DE90009183A /* PokemonListViewController.swift in Sources */,
 				D9DA28B329C367D10009183A /* ApiManager.swift in Sources */,
 				D9DA28AC29C2FC910009183A /* PokemonTableViewCell.swift in Sources */,
+				D958432629C4637300728063 /* ModuleBuilder.swift in Sources */,
 				D9DA28A129C225200009183A /* PokemonInfo.swift in Sources */,
 				D9DA289F29C21BB90009183A /* PokemonList.swift in Sources */,
 				D9DA288B29C20DE90009183A /* AppDelegate.swift in Sources */,

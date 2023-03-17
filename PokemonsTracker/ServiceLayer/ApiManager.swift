@@ -31,11 +31,14 @@ enum ApiType {
 class ApiManager {
     static let shared = ApiManager()
     
-    func getPokemonList(completion: @escaping (PokemonList) -> Void) {
+    func getPokemonList(completion: @escaping ([Result]) -> Void) {
         let request = ApiType.getPokemonList.request
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data, let pokemonList = try? JSONDecoder().decode(PokemonList.self, from: data) {
-                print(pokemonList.results?.first?.name)
+                completion(pokemonList.results!)
+            }
+            else {
+                completion([])
             }
         }
         task.resume()

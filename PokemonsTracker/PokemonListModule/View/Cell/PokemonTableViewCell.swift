@@ -13,6 +13,10 @@ class PokemonTableViewCell: UITableViewCell {
     let isSelectedView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(named: "MainColor")
+        
+        // MARK: - temporary
+        view.isHidden = true
+        
         return view
     }()
     
@@ -20,7 +24,7 @@ class PokemonTableViewCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 16.0, weight: .semibold)
-        label.textColor = .black
+        label.textColor = UIColor(named: "TextColor")
         label.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .vertical)
         label.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh, for: .vertical)
         return label
@@ -32,7 +36,7 @@ class PokemonTableViewCell: UITableViewCell {
         backgroundColor = .clear
         selectionStyle = .none
         
-        cardView.layer.cornerRadius = 10
+        cardView.layer.cornerRadius = 15
         cardView.clipsToBounds = true
         
         overlayFirstLayer()
