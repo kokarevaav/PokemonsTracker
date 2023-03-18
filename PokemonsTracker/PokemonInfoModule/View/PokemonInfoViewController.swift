@@ -65,8 +65,18 @@ class PokemonInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "MainColor")
+        setUpNavigationItem()
         setupImage()
         setupLabels()
+    }
+    
+    private func setUpNavigationItem() {
+        navigationItem.titleView?.setPosition(top: view.topAnchor,
+                                              left: view.leftAnchor,
+                                              bottom: view.bottomAnchor,
+                                              right: view.rightAnchor,
+                                              paddingTop: 40)
+        navigationItem.title = "Details:"
     }
     
     private func setupImage() {
@@ -77,7 +87,7 @@ class PokemonInfoViewController: UIViewController {
                                  left: view.leftAnchor,
                                  bottom: nil,
                                  right: view.rightAnchor,
-                                 paddingTop: -40,
+                                 paddingTop: 0,
                                  paddingLeft: 40,
                                  paddingRight: 40,
                                  height: 280)
@@ -88,23 +98,24 @@ class PokemonInfoViewController: UIViewController {
     }
     
     private func setupLabels() {
-        view.addSubview(headerLabel)
+        //view.addSubview(headerLabel)
         view.addSubview(nameLabel)
         view.addSubview(typeLabel)
         view.addSubview(heightLabel)
         view.addSubview(weigthLabel)
         
-        headerLabel.setPosition(top: pokemonImage.bottomAnchor,
-                                left: view.leftAnchor,
-                                bottom: nil,
-                                right: view.rightAnchor,
-                                paddingTop: 20)
-        nameLabel.setPosition(top: headerLabel.bottomAnchor,
+        nameLabel.setPosition(top: pokemonImage.bottomAnchor,
                               left: view.leftAnchor,
                               bottom: nil,
                               right: view.rightAnchor,
                               paddingTop: 20,
                               paddingLeft: 12)
+//        nameLabel.setPosition(top: headerLabel.bottomAnchor,
+//                              left: view.leftAnchor,
+//                              bottom: nil,
+//                              right: view.rightAnchor,
+//                              paddingTop: 20,
+//                              paddingLeft: 12)
         typeLabel.setPosition(top: nameLabel.bottomAnchor,
                               left: view.leftAnchor,
                               bottom: nil,
