@@ -10,20 +10,25 @@ class PokemonTableViewCell: UITableViewCell {
         return view
     }()
     
-    let isSelectedView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(named: "MainColor")
-        
-        // MARK: - temporary
-        view.isHidden = true
-        
-        return view
+//    let isSelectedView: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = UIColor(named: "TextColor")
+//        view.layer.cornerRadius = 10
+//        return view
+//    }()
+    
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 20.0, weight: .semibold)
+        label.textColor = UIColor(named: "TextColor")
+        label.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .vertical)
+        label.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh, for: .vertical)
+        return label
     }()
     
-    let titleLabel: UILabel = {
+    private let numLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 16.0, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: 30.0, weight: .bold)
         label.textColor = UIColor(named: "TextColor")
         label.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .vertical)
         label.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh, for: .vertical)
@@ -32,7 +37,8 @@ class PokemonTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+       
+        accessoryType = .disclosureIndicator
         backgroundColor = .clear
         selectionStyle = .none
         
@@ -55,9 +61,9 @@ class PokemonTableViewCell: UITableViewCell {
         super.layoutSubviews()
     }
 
-    func overlayFirstLayer() {
+    private func overlayFirstLayer() {
         addSubview(cardView)
-        addSubview(isSelectedView)
+        //addSubview(isSelectedView)
         
         cardView.setPosition(top: topAnchor,
                              left: leftAnchor,
@@ -67,30 +73,45 @@ class PokemonTableViewCell: UITableViewCell {
                              paddingLeft: 12,
                              paddingBottom: 16,
                              paddingRight: 12,
-                             height: 50)
+                             height: 60)
         
-        isSelectedView.setPosition(top: cardView.topAnchor,
-                                   left: cardView.leftAnchor,
-                                   bottom: cardView.bottomAnchor,
-                                   right: nil,
-                                   paddingTop: 0,
-                                   paddingLeft: 0,
-                                   paddingBottom: 0,
-                                   paddingRight: 0,
-                                   width: 5,
-                                   height: 0)
+        //isSelectedView.setPosition(top: cardView.topAnchor,
+//                                   left: cardView.leftAnchor,
+//                                   bottom: cardView.bottomAnchor,
+//                                   right: nil,
+//                                   paddingTop: 0,
+//                                   paddingLeft: 0,
+//                                   paddingBottom: 0,
+//                                   paddingRight: 0,
+//                                   width: 5,
+//                                   height: 0)
     }
 
-    func overlaySecondLayer() {
-        cardView.addSubview(titleLabel)
+    private func overlaySecondLayer() {
+        cardView.addSubview(numLabel)
+        cardView.addSubview(nameLabel)
         
-        titleLabel.setPosition(top: cardView.topAnchor,
+        numLabel.setPosition(top: cardView.topAnchor,
                                left: cardView.leftAnchor,
                                bottom: nil,
                                right: cardView.rightAnchor,
-                               paddingTop: 16,
+                               paddingTop: 10,
                                paddingLeft: 12,
                                paddingBottom: 0,
                                paddingRight: 20)
+        
+        nameLabel.setPosition(top: cardView.topAnchor,
+                              left: numLabel.leftAnchor,
+                              bottom: nil,
+                              right: numLabel.rightAnchor,
+                              paddingTop: 17,
+                              paddingLeft: 50,
+                              paddingBottom: 0,
+                              paddingRight: 20)
+    }
+    
+    func setLabelText(num: String, name: String) {
+        numLabel.text = num
+        nameLabel.text = name
     }
 }

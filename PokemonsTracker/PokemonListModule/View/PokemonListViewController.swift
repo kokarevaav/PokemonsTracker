@@ -55,7 +55,7 @@ extension PokemonListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PokemonTableViewCell.reuseId, for: indexPath) as? PokemonTableViewCell else { return UITableViewCell() }
-        cell.titleLabel.text = presenter.getPokemonForCell(index: indexPath.row).name
+        cell.setLabelText(num: String(indexPath.row + 1), name: presenter.getPokemonForCell(index: indexPath.row).name!)
         return cell
     }
     

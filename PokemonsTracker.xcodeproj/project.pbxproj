@@ -80,6 +80,15 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		D958433029C6155400728063 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D9DA28A029C225200009183A /* PokemonInfo.swift */,
+				D9DA289E29C21BB90009183A /* PokemonList.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		D9DA287E29C20DE90009183A = {
 			isa = PBXGroup;
 			children = (
@@ -99,14 +108,13 @@
 		D9DA288929C20DE90009183A /* PokemonsTracker */ = {
 			isa = PBXGroup;
 			children = (
+				D958433029C6155400728063 /* Model */,
 				D958432729C4B5B400728063 /* PokemonInfoModule */,
 				D9DA28B129C367A20009183A /* ServiceLayer */,
 				D9DA28AE29C306840009183A /* Extensions */,
 				D9DA28A429C237110009183A /* PokemonListModule */,
 				D9DA28A329C231C00009183A /* SystemFiles */,
 				D9DA28A229C231960009183A /* Resources */,
-				D9DA289E29C21BB90009183A /* PokemonList.swift */,
-				D9DA28A029C225200009183A /* PokemonInfo.swift */,
 				D958432529C4637300728063 /* ModuleBuilder.swift */,
 			);
 			path = PokemonsTracker;
