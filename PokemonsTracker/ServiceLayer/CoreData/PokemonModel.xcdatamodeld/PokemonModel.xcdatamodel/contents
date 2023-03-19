@@ -8,4 +8,7 @@
         <attribute name="type" optional="YES" attributeType="String"/>
         <attribute name="weight" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="PokemonList" representedClassName="PokemonList" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+    </entity>
 </model>

@@ -34,7 +34,8 @@ class ApiManager {
     func getPokemonList(completion: @escaping ([Result]) -> Void) {
         let request = ApiType.getPokemonList.request
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data, let pokemonList = try? JSONDecoder().decode(PokemonList.self, from: data) {
+            if let data = data, let pokemonList = try?
+                JSONDecoder().decode(PokemonList.self, from: data) {
                 completion(pokemonList.results!)
             }
             else {
