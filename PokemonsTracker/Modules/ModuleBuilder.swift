@@ -8,18 +8,20 @@ protocol Buider {
 
 class ModuleBuilder: Buider {
     static func createPokemonListModule() -> UIViewController {
-        
         let pokemonListView = PokemonListViewController()
         let pokemonListPresenter = PokemonListPresenter(view: pokemonListView)
-        ApiManager.shared.getPokemonList() { data in
-            guard !data.isEmpty else {
-//                DispatchQueue.main.async {
-//                    quizView.showAlert(title: "Oops! Something went wrong..", message: "Please check your internet connection and try again!")
-                //}
-                return
+        if Reachability.isConnectedToNetwork() {
+            ApiManager.shared.getPokemonList() {
+                DispatchQueue.main.async {
+                    pokemonListPresenter.pokemonList = CoreDataManager.shared.fetch(type: PokemonList.self)
+                    pokemonListView.reloadView()
+                }
             }
-            pokemonListPresenter.pokemonList = data
-            pokemonListView.reloadView()
+        } else {
+            DispatchQueue.main.async {
+                pokemonListPresenter.pokemonList = CoreDataManager.shared.fetch(type: PokemonList.self)
+                pokemonListView.reloadView()
+            }
         }
         pokemonListView.presenter = pokemonListPresenter
         return pokemonListView
@@ -28,13 +30,22 @@ class ModuleBuilder: Buider {
     static func createPokemonInfoModule(id: Int) -> UIViewController {
         let pokemonInfoView = PokemonInfoViewController()
         let pokemonInfoPresenter = PokemonInfoPresenter(view: pokemonInfoView)
-        ApiManager.shared.getPokemonInfo(pokemonId: id) { data in
-            guard let data = data else {
-                // MARK: - add
-                return
+        if Reachability.isConnectedToNetwork() {
+            ApiManager.shared.getPokemonInfo(pokemonId: id) {
+                DispatchQueue.main.async {
+                    pokemonInfoPresenter.pokemonInfo = CoreDataManager.shared.fetch(type: PokemonInfo.self).first(where: { $0.id == id})
+                    pokemonInfoView.reloadView()
+                }
             }
-            pokemonInfoPresenter.pokemonInfo = data
-            pokemonInfoView.reloadView()
+        } else {
+            DispatchQueue.main.async {
+                pokemonInfoPresenter.pokemonInfo = CoreDataManager.shared.fetch(type: PokemonInfo.self).first(where: { $0.id == id})
+                if pokemonInfoPresenter.pokemonInfo != nil {
+                    pokemonInfoView.reloadView()
+                } else {
+                    pokemonInfoView.setNoInfoLoadedView()
+                }
+            }
         }
         pokemonInfoView.presenter = pokemonInfoPresenter
         return pokemonInfoView

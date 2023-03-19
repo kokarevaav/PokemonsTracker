@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22C65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Pokemon" representedClassName="Pokemon" syncable="YES" codeGenerationType="class">
-        <attribute name="frontImageURL" optional="YES" attributeType="String"/>
-        <attribute name="height" optional="YES" attributeType="String"/>
-        <attribute name="isRead" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+    <entity name="PokemonInfo" representedClassName=".PokemonInfo" syncable="YES">
+        <attribute name="frontDefault" optional="YES" attributeType="String"/>
+        <attribute name="height" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="String"/>
-        <attribute name="weight" optional="YES" attributeType="String"/>
+        <attribute name="weight" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
-    <entity name="PokemonList" representedClassName="PokemonList" syncable="YES" codeGenerationType="class">
+    <entity name="PokemonList" representedClassName=".PokemonList" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
 </model>

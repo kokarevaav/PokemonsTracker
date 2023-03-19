@@ -1,4 +1,5 @@
 import Foundation
+import CoreData
 
 enum ApiType {
     case getPokemonList
@@ -28,33 +29,46 @@ enum ApiType {
     }
 }
 
+struct ResponseModel {
+    let statusCode : Int
+    let error : Error?
+    let data : Data?
+}
+
 class ApiManager {
     static let shared = ApiManager()
     
-    func getPokemonList(completion: @escaping ([Result]) -> Void) {
+    func getPokemonList(completion: @escaping () -> Void) {
         let request = ApiType.getPokemonList.request
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data, let pokemonList = try?
-                JSONDecoder().decode(PokemonList.self, from: data) {
-                completion(pokemonList.results!)
+        let task = URLSession.shared.dataTask(with: request) { data, response, error -> Void in
+            if let data = data, let pokemonList = try? JSONDecoder().decode(PokemonListApiModel<[Result]>.self, from: data) {
+                DispatchQueue.main.async {
+                    CoreDataManager.shared.resetAllRecords(in: "PokemonList")
+                }
+                pokemonList.results!.forEach { $0.store() }
+                completion()
             }
             else {
-                completion([])
+                print("error")
+                completion()
             }
         }
         task.resume()
     }
     
-    func getPokemonInfo(pokemonId: Int, completion: @escaping (PokemonInfo?) -> Void) {
+    func getPokemonInfo(pokemonId: Int, completion: @escaping () -> Void) {
         let request = ApiType.getPokemonInfo(id: String(pokemonId)).request
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data, let pokemonInfo = try? JSONDecoder().decode(PokemonInfo.self, from: data) {
-                completion(pokemonInfo)
+            if let data = data, let pokemonInfo = try? JSONDecoder().decode(PokemonInfoApiModel.self, from: data) {
+                pokemonInfo.store()
+                completion()
             }
             else {
-                completion(nil)
+                print("error")
+                completion()
             }
         }
         task.resume()
     }
 }
+

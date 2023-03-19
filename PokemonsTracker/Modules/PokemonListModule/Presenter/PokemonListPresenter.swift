@@ -2,24 +2,24 @@ import Foundation
 
 protocol PokemonListPresenterProtocol: AnyObject {
     init(view: PokemonListViewProtocol)
-    func getPokemonList() -> [Result]
-    func getPokemonForCell(index: Int) -> Result
+    func getPokemonList() -> [PokemonList]
+    func getPokemonForCell(index: Int) -> PokemonList
 }
 
 class PokemonListPresenter: PokemonListPresenterProtocol {
     let view: PokemonListViewProtocol
-    var pokemonList: [Result]
+    var pokemonList: [PokemonList]
     
     required init(view: PokemonListViewProtocol) {
         self.view = view
         self.pokemonList = []
     }
     
-    func getPokemonList() -> [Result] {
+    func getPokemonList() -> [PokemonList] {
         return self.pokemonList
     }
     
-    func getPokemonForCell(index: Int) -> Result {
+    func getPokemonForCell(index: Int) -> PokemonList {
         return pokemonList[index]
     }
 }

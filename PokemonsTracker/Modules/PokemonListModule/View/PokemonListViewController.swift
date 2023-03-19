@@ -10,6 +10,12 @@ class PokemonListViewController: UIViewController {
     
     private let tableView = UITableView(frame: .zero, style: .plain)
 
+    private let emptyImage: UIImageView = {
+        let image = UIImage(named: "NoInternetImage")
+        let imageView = UIImageView(image: image)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +40,7 @@ class PokemonListViewController: UIViewController {
         tableView.delegate = self
         
         view.addSubview(tableView)
+        tableView.addSubview(emptyImage)
         
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
@@ -45,21 +52,23 @@ class PokemonListViewController: UIViewController {
     
     private func setupConstraints() {
         tableView.fillToSuperView(view: view)
+        
+        emptyImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        emptyImage.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
 }
 
 extension PokemonListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        emptyImage.isHidden = presenter.getPokemonList().count != 0
         return presenter.getPokemonList().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PokemonTableViewCell.reuseId, for: indexPath) as? PokemonTableViewCell else { return UITableViewCell() }
-        cell.setLabelText(num: String(indexPath.row + 1), name: presenter.getPokemonForCell(index: indexPath.row).name!)
+        cell.setLabelText(num: String(indexPath.row + 1), name: presenter.getPokemonForCell(index: indexPath.row).name)
         return cell
     }
-    
-    
 }
 
 extension PokemonListViewController: UITableViewDelegate {

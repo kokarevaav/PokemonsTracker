@@ -3,6 +3,7 @@ import UIKit
 
 protocol PokemonInfoViewProtocol: AnyObject {
     func reloadView()
+    func setNoInfoLoadedView()
 }
 
 class PokemonInfoViewController: UIViewController {
@@ -94,28 +95,25 @@ class PokemonInfoViewController: UIViewController {
         pokemonImage.setPosition(top: imageBackgroundView.topAnchor,
                                  left: imageBackgroundView.leftAnchor,
                                  bottom: imageBackgroundView.bottomAnchor,
-                                 right: imageBackgroundView.rightAnchor)
+                                 right: imageBackgroundView.rightAnchor,
+                                 paddingTop: 50,
+                                 paddingLeft: 50,
+                                 paddingBottom: 50,
+                                 paddingRight: 50)
     }
     
     private func setupLabels() {
-        //view.addSubview(headerLabel)
         view.addSubview(nameLabel)
         view.addSubview(typeLabel)
         view.addSubview(heightLabel)
         view.addSubview(weigthLabel)
         
-        nameLabel.setPosition(top: pokemonImage.bottomAnchor,
+        nameLabel.setPosition(top: imageBackgroundView.bottomAnchor,
                               left: view.leftAnchor,
                               bottom: nil,
                               right: view.rightAnchor,
                               paddingTop: 20,
                               paddingLeft: 12)
-//        nameLabel.setPosition(top: headerLabel.bottomAnchor,
-//                              left: view.leftAnchor,
-//                              bottom: nil,
-//                              right: view.rightAnchor,
-//                              paddingTop: 20,
-//                              paddingLeft: 12)
         typeLabel.setPosition(top: nameLabel.bottomAnchor,
                               left: view.leftAnchor,
                               bottom: nil,
@@ -144,9 +142,19 @@ class PokemonInfoViewController: UIViewController {
         weigthLabel.text! += "         \(presenter.getPokemonWeigth()) kg"
     }
     
+    private func setNoInfoIbOutlets() {
+        pokemonImage.image = UIImage(named: "NoImage")
+    }
+    
 }
 
 extension PokemonInfoViewController: PokemonInfoViewProtocol {
+    func setNoInfoLoadedView() {
+        DispatchQueue.main.async {
+            self.setNoInfoIbOutlets()
+        }
+    }
+    
     func reloadView() {
         DispatchQueue.main.async {
             self.setIbOutlets()

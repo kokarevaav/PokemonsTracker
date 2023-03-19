@@ -18,22 +18,22 @@ class PokemonInfoPresenter: PokemonInfoPresenterProtocol {
     }
     
     func getImageURL() -> URL {
-        return URL(string: pokemonInfo.sprites!.frontDefault!)!
+        return URL(string: pokemonInfo.frontDefault)!
     }
     
     func getPokemonName() -> String {
-        return pokemonInfo.name!
+        return pokemonInfo.name
     }
     
     func getPokemonType() -> String {
-        return pokemonInfo.types!.first!.type!.name!
+        return pokemonInfo.type
     }
     
     func getPokemonHeight() -> String {
-        return String(pokemonInfo.height!)
+        return String(pokemonInfo.height)
     }
     
     func getPokemonWeigth() -> String {
-        return String(pokemonInfo.weight!)
+        return String(pokemonInfo.weight)
     }
 }

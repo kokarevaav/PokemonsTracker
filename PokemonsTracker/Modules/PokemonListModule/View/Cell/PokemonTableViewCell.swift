@@ -17,7 +17,7 @@ class PokemonTableViewCell: UITableViewCell {
 //        return view
 //    }()
     
-    private let nameLabel: UILabel = {
+    let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20.0, weight: .semibold)
         label.textColor = UIColor(named: "TextColor")
