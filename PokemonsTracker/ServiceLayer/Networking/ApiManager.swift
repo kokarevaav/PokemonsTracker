@@ -29,18 +29,21 @@ enum ApiType {
     }
 }
 
-struct ResponseModel {
-    let statusCode : Int
-    let error : Error?
-    let data : Data?
+protocol ApiManagerProtocol: AnyObject {
+    func getPokemonList(completion: @escaping (_ isSuccess: Bool) -> Void)
+    func getPokemonInfo(pokemonId: Int, completion: @escaping (_ isSuccess: Bool) -> Void)
 }
 
-class ApiManager {
+class ApiManager: ApiManagerProtocol {
     static let shared = ApiManager()
     
     func getPokemonList(completion: @escaping (_ isSuccess: Bool) -> Void) {
         let request = ApiType.getPokemonList.request
         let task = URLSession.shared.dataTask(with: request) { data, response, error -> Void in
+            if error != nil {
+                completion(false)
+                return
+            }
             if let data = data, let pokemonList = try? JSONDecoder().decode(PokemonListApiModel<[Result]>.self, from: data) {
                 DispatchQueue.main.async {
                     CoreDataManager.shared.resetAllRecords(in: "PokemonList")
@@ -56,16 +59,20 @@ class ApiManager {
         task.resume()
     }
     
-    func getPokemonInfo(pokemonId: Int, completion: @escaping () -> Void) {
+    func getPokemonInfo(pokemonId: Int, completion: @escaping (_ isSuccess: Bool) -> Void) {
         let request = ApiType.getPokemonInfo(id: String(pokemonId)).request
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if error != nil {
+                completion(false)
+                return
+            }
             if let data = data, let pokemonInfo = try? JSONDecoder().decode(PokemonInfoApiModel.self, from: data) {
                 pokemonInfo.store()
-                completion()
+                completion(true)
             }
             else {
                 print("error")
-                completion()
+                completion(false)
             }
         }
         task.resume()

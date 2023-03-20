@@ -4,10 +4,10 @@ import UIKit
 class CoreDataManager {
     static let shared = CoreDataManager()
     
-    private var viewContext: NSManagedObjectContext!
+    let viewContext: NSManagedObjectContext
     
-    private init() {
-        self.viewContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    init(mainContext: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        self.viewContext = mainContext
     }
 
     func add<T: NSManagedObject>(type: T.Type) -> T? {
@@ -37,12 +37,11 @@ class CoreDataManager {
     }
     
     func resetAllRecords(in entityName : String) {
-        let context = ( UIApplication.shared.delegate as! AppDelegate ).persistentContainer.viewContext
         let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
         do {
-            try context.execute(deleteRequest)
-            try context.save()
+            try viewContext.execute(deleteRequest)
+            try viewContext.save()
         }
         catch {
             print ("There was an error")

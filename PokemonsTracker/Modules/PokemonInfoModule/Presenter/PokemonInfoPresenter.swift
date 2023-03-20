@@ -7,6 +7,7 @@ protocol PokemonInfoPresenterProtocol: AnyObject {
     func getPokemonType() -> String
     func getPokemonHeight() -> String
     func getPokemonWeigth() -> String
+    func setPokemonInfo(id: Int)
 }
 
 class PokemonInfoPresenter: PokemonInfoPresenterProtocol {
@@ -35,5 +36,37 @@ class PokemonInfoPresenter: PokemonInfoPresenterProtocol {
     
     func getPokemonWeigth() -> String {
         return String(pokemonInfo.weight)
+    }
+    
+    func setPokemonInfo(id: Int) {
+        if Reachability.isConnectedToNetwork() {
+            getPokemonInfoFromApi(id: id)
+        } else {
+            getPokemonInfoFromCoreData(id: id)
+        }
+    }
+    
+    private func getPokemonInfoFromApi(id: Int) {
+        ApiManager.shared.getPokemonInfo(pokemonId: id) { isSuccess in
+            DispatchQueue.main.async { [self] in
+                if !isSuccess {
+                    view.showAlertMessage(title: "Something went wrong", message: "Please try again after a while")
+                }
+                pokemonInfo = CoreDataManager.shared.fetch(type: PokemonInfo.self).first(where: { $0.id == id})
+                view.reloadView()
+            }
+        }
+    }
+    
+    private func getPokemonInfoFromCoreData(id: Int) {
+        DispatchQueue.main.async { [self] in
+            pokemonInfo = CoreDataManager.shared.fetch(type: PokemonInfo.self).first(where: { $0.id == id})
+            if pokemonInfo != nil {
+                view.reloadView()
+            } else {
+                view.showAlertMessage(title: "Oops", message: "Check your Internet Connection please")
+                view.setNoInfoLoadedView()
+            }
+        }
     }
 }
