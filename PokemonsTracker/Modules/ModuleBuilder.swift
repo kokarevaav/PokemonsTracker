@@ -11,14 +11,18 @@ class ModuleBuilder: Buider {
         let pokemonListView = PokemonListViewController()
         let pokemonListPresenter = PokemonListPresenter(view: pokemonListView)
         if Reachability.isConnectedToNetwork() {
-            ApiManager.shared.getPokemonList() {
+            ApiManager.shared.getPokemonList() { isSuccess in
                 DispatchQueue.main.async {
+                    if !isSuccess {
+                        pokemonListView.showAlertMessage(title: "Something went wrong", message: "Please try again after a while")
+                    }
                     pokemonListPresenter.pokemonList = CoreDataManager.shared.fetch(type: PokemonList.self)
                     pokemonListView.reloadView()
                 }
             }
         } else {
             DispatchQueue.main.async {
+                pokemonListView.showAlertMessage(title: "Please check your Internet Connection", message: "Some pokemons may not appear")
                 pokemonListPresenter.pokemonList = CoreDataManager.shared.fetch(type: PokemonList.self)
                 pokemonListView.reloadView()
             }
@@ -43,6 +47,7 @@ class ModuleBuilder: Buider {
                 if pokemonInfoPresenter.pokemonInfo != nil {
                     pokemonInfoView.reloadView()
                 } else {
+                    pokemonInfoView.showAlertMessage(title: "Oops", message: "Check your Internet Connection please")
                     pokemonInfoView.setNoInfoLoadedView()
                 }
             }

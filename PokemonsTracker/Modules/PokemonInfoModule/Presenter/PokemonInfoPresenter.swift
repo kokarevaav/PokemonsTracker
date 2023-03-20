@@ -2,7 +2,7 @@ import Foundation
 
 protocol PokemonInfoPresenterProtocol: AnyObject {
     init(view: PokemonInfoViewProtocol)
-    func getImageURL() -> URL
+    func getImageData() -> Data
     func getPokemonName() -> String
     func getPokemonType() -> String
     func getPokemonHeight() -> String
@@ -17,8 +17,8 @@ class PokemonInfoPresenter: PokemonInfoPresenterProtocol {
         self.view = view
     }
     
-    func getImageURL() -> URL {
-        return URL(string: pokemonInfo.frontDefault)!
+    func getImageData() -> Data {
+        return pokemonInfo.frontDefault as Data
     }
     
     func getPokemonName() -> String {

@@ -38,7 +38,7 @@ struct ResponseModel {
 class ApiManager {
     static let shared = ApiManager()
     
-    func getPokemonList(completion: @escaping () -> Void) {
+    func getPokemonList(completion: @escaping (_ isSuccess: Bool) -> Void) {
         let request = ApiType.getPokemonList.request
         let task = URLSession.shared.dataTask(with: request) { data, response, error -> Void in
             if let data = data, let pokemonList = try? JSONDecoder().decode(PokemonListApiModel<[Result]>.self, from: data) {
@@ -46,11 +46,11 @@ class ApiManager {
                     CoreDataManager.shared.resetAllRecords(in: "PokemonList")
                 }
                 pokemonList.results!.forEach { $0.store() }
-                completion()
+                completion(true)
             }
             else {
                 print("error")
-                completion()
+                completion(false)
             }
         }
         task.resume()

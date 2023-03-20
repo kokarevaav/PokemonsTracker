@@ -18,4 +18,16 @@ extension UIImageView {
             
         }
     }
+    
+    func convertDataToImage(data: Data) {
+        if let image = UIImage(data: data) {
+            DispatchQueue.main.async {
+                self.image = image
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.image = UIImage(named: "NoImage")
+            }
+        }
+    }
 }

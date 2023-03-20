@@ -2,6 +2,7 @@ import UIKit
 
 protocol PokemonListViewProtocol: AnyObject {
     func reloadView()
+    func showAlertMessage(title: String, message: String)
 }
 
 class PokemonListViewController: UIViewController {
@@ -79,6 +80,13 @@ extension PokemonListViewController: UITableViewDelegate {
 }
 
 extension PokemonListViewController: PokemonListViewProtocol {
+    func showAlertMessage(title: String, message: String) {
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        ac.addAction(ok)
+        present(ac, animated: true, completion: nil)
+    }
+    
     func reloadView() {
         DispatchQueue.main.async {
             self.tableView.reloadData()

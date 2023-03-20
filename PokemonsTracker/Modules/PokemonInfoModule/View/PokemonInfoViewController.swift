@@ -4,6 +4,7 @@ import UIKit
 protocol PokemonInfoViewProtocol: AnyObject {
     func reloadView()
     func setNoInfoLoadedView()
+    func showAlertMessage(title: String, message: String)
 }
 
 class PokemonInfoViewController: UIViewController {
@@ -135,7 +136,7 @@ class PokemonInfoViewController: UIViewController {
     }
     
     private func setIbOutlets() {
-        pokemonImage.load(url: presenter.getImageURL())
+        pokemonImage.convertDataToImage(data: presenter.getImageData())
         nameLabel.text! += "           \(presenter.getPokemonName())"
         typeLabel.text! += "             \(presenter.getPokemonType())"
         heightLabel.text! += "          \(presenter.getPokemonHeight()) cm"
@@ -149,6 +150,13 @@ class PokemonInfoViewController: UIViewController {
 }
 
 extension PokemonInfoViewController: PokemonInfoViewProtocol {
+    func showAlertMessage(title: String, message: String) {
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        ac.addAction(ok)
+        present(ac, animated: true, completion: nil)
+    }
+    
     func setNoInfoLoadedView() {
         DispatchQueue.main.async {
             self.setNoInfoIbOutlets()
