@@ -29,17 +29,27 @@ enum ApiType {
     }
 }
 
-protocol ApiManagerProtocol: AnyObject {
-    func getPokemonList(completion: @escaping (_ isSuccess: Bool) -> Void)
-    func getPokemonInfo(pokemonId: Int, completion: @escaping (_ isSuccess: Bool) -> Void)
+protocol URLSessionProtocol {
+    typealias DataTaskResult = (Data?, URLResponse?, Error?) -> Void
+    
+    func dataTask(with request: URLRequest, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol
 }
 
-class ApiManager: ApiManagerProtocol {
-    static let shared = ApiManager()
+protocol URLSessionDataTaskProtocol { func resume() }
+
+class ApiManager {
+    static let shared = ApiManager(session: URLSession.shared)
+    
+    private let session: URLSessionProtocol
+    
+    init(session: URLSessionProtocol) {
+        self.session = session
+    }
     
     func getPokemonList(completion: @escaping (_ isSuccess: Bool) -> Void) {
+        
         let request = ApiType.getPokemonList.request
-        let task = URLSession.shared.dataTask(with: request) { data, response, error -> Void in
+        let task = session.dataTask(with: request) { data, response, error -> Void in
             if error != nil {
                 completion(false)
                 return
@@ -61,7 +71,7 @@ class ApiManager: ApiManagerProtocol {
     
     func getPokemonInfo(pokemonId: Int, completion: @escaping (_ isSuccess: Bool) -> Void) {
         let request = ApiType.getPokemonInfo(id: String(pokemonId)).request
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = session.dataTask(with: request) { data, response, error in
             if error != nil {
                 completion(false)
                 return
@@ -78,4 +88,12 @@ class ApiManager: ApiManagerProtocol {
         task.resume()
     }
 }
+
+
+extension URLSession: URLSessionProtocol {
+    func dataTask(with request: URLRequest, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol {
+        return dataTask(with: request, completionHandler: completionHandler) as URLSessionDataTaskProtocol
+    }
+}
+extension URLSessionDataTask: URLSessionDataTaskProtocol {}
 
