@@ -47,26 +47,22 @@ class PokemonInfoPresenter: PokemonInfoPresenterProtocol {
     }
     
     private func getPokemonInfoFromApi(id: Int) {
-        ApiManager.shared.getPokemonInfo(pokemonId: id) { isSuccess in
-            DispatchQueue.main.async { [self] in
-                if !isSuccess {
-                    view.showAlertMessage(title: "Something went wrong", message: "Please try again after a while")
-                }
-                pokemonInfo = CoreDataManager.shared.fetch(type: PokemonInfo.self).first(where: { $0.id == id})
-                view.reloadView()
+        ApiManager.shared.getPokemonInfo(pokemonId: id) { [self] isSuccess in
+            if !isSuccess {
+                view.showAlertMessage(title: "Something went wrong", message: "Please try again after a while")
             }
+            pokemonInfo = CoreDataManager.shared.fetch(type: PokemonInfo.self).first(where: { $0.id == id})
+            view.reloadView()
         }
     }
     
     private func getPokemonInfoFromCoreData(id: Int) {
-        DispatchQueue.main.async { [self] in
-            pokemonInfo = CoreDataManager.shared.fetch(type: PokemonInfo.self).first(where: { $0.id == id})
-            if pokemonInfo != nil {
-                view.reloadView()
-            } else {
-                view.showAlertMessage(title: "Oops", message: "Check your Internet Connection please")
-                view.setNoInfoLoadedView()
-            }
+        pokemonInfo = CoreDataManager.shared.fetch(type: PokemonInfo.self).first(where: { $0.id == id})
+        if pokemonInfo != nil {
+            view.reloadView()
+        } else {
+            view.showAlertMessage(title: "Oops", message: "Check your Internet Connection please")
+            view.setNoInfoLoadedView()
         }
     }
 }

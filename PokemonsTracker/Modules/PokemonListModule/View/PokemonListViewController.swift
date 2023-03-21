@@ -6,10 +6,13 @@ protocol PokemonListViewProtocol: AnyObject {
 }
 
 class PokemonListViewController: UIViewController {
-
     var presenter: PokemonListPresenterProtocol!
     
     private let tableView = UITableView(frame: .zero, style: .plain)
+    private let refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        return refreshControl
+    }()
 
     private let emptyImage: UIImageView = {
         let image = UIImage(named: "NoInternetImage")
@@ -20,7 +23,10 @@ class PokemonListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
+        
         view.backgroundColor = UIColor(named: "MainColor")
+        
         setupNavigationBar()
         setupTableView()
     }
@@ -37,6 +43,8 @@ class PokemonListViewController: UIViewController {
     }
 
     private func setupTableView() {
+        tableView.refreshControl = refreshControl
+        
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -56,6 +64,12 @@ class PokemonListViewController: UIViewController {
         
         emptyImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         emptyImage.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    @objc private func refresh(sender: UIRefreshControl) {
+        presenter.setPokemonList()
+        tableView.reloadData()
+        sender.endRefreshing()
     }
 }
 
@@ -84,7 +98,10 @@ extension PokemonListViewController: PokemonListViewProtocol {
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let ok = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         ac.addAction(ok)
-        present(ac, animated: true, completion: nil)
+        
+        DispatchQueue.main.async {
+            self.present(ac, animated: true, completion: nil)
+        }
     }
     
     func reloadView() {

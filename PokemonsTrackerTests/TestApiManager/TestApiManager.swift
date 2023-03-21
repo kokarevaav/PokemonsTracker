@@ -35,14 +35,13 @@ final class TestApiManager: XCTestCase {
     override func tearDownWithError() throws {
     }
 
-    func testApiManger() {
+    func testResumeCalled() {
         let dataTask = MockURLSessionDataTask()
         session.nextDataTask = dataTask
       
-        apiManager.getPokemonList(completion: ) { (success) in
+        apiManager.getPokemonList(completion: ) { success in
             // Return data
         }
         XCTAssert(dataTask.resumeWasCalled)
     }
-
 }

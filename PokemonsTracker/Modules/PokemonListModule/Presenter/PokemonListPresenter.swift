@@ -33,22 +33,18 @@ class PokemonListPresenter: PokemonListPresenterProtocol {
     }
     
     private func getPokemonListFromApi() {
-        ApiManager.shared.getPokemonList() { isSuccess in
-            DispatchQueue.main.async { [self] in
-                if !isSuccess {
-                    view.showAlertMessage(title: "Something went wrong", message: "Please try again after a while")
-                }
-                pokemonList = CoreDataManager.shared.fetch(type: PokemonList.self)
-                view.reloadView()
+        ApiManager.shared.getPokemonList() { [self] isSuccess in
+            if !isSuccess {
+                view.showAlertMessage(title: "Something went wrong", message: "Please try again after a while")
             }
+            pokemonList = CoreDataManager.shared.fetch(type: PokemonList.self)
+            view.reloadView()
         }
     }
     
     private func getPokemonListFromCoreData() {
-        DispatchQueue.main.async { [self] in
-            view.showAlertMessage(title: "Please check your Internet Connection", message: "Some pokemons may not appear")
-            pokemonList = CoreDataManager.shared.fetch(type: PokemonList.self)
-            view.reloadView()
-        }
+        view.showAlertMessage(title: "Please check your Internet Connection", message: "Some pokemons may not appear")
+        pokemonList = CoreDataManager.shared.fetch(type: PokemonList.self)
+        view.reloadView()
     }
 }

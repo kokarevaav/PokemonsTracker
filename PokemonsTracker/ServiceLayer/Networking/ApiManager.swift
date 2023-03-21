@@ -47,7 +47,6 @@ class ApiManager {
     }
     
     func getPokemonList(completion: @escaping (_ isSuccess: Bool) -> Void) {
-        
         let request = ApiType.getPokemonList.request
         let task = session.dataTask(with: request) { data, response, error -> Void in
             if error != nil {
@@ -55,9 +54,7 @@ class ApiManager {
                 return
             }
             if let data = data, let pokemonList = try? JSONDecoder().decode(PokemonListApiModel<[Result]>.self, from: data) {
-                DispatchQueue.main.async {
-                    CoreDataManager.shared.resetAllRecords(in: "PokemonList")
-                }
+                CoreDataManager.shared.resetAllRecords(in: "PokemonList")
                 pokemonList.results!.forEach { $0.store() }
                 completion(true)
             }

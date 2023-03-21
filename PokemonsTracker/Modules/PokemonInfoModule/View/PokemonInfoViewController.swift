@@ -154,7 +154,9 @@ extension PokemonInfoViewController: PokemonInfoViewProtocol {
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let ok = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         ac.addAction(ok)
-        present(ac, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(ac, animated: true, completion: nil)
+        }
     }
     
     func setNoInfoLoadedView() {
