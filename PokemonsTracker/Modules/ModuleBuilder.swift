@@ -8,8 +8,6 @@ protocol Buider {
 
 class ModuleBuilder: Buider {
     static func createPokemonListModule() -> UIViewController {
-        CoreDataManager.shared.resetAllRecords(in: "PokemonList")
-        CoreDataManager.shared.resetAllRecords(in: "PokemonInfo")
         let pokemonListView = PokemonListViewController()
         let pokemonListPresenter = PokemonListPresenter(view: pokemonListView)
         pokemonListPresenter.setPokemonList()

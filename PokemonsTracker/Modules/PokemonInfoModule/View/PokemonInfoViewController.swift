@@ -12,19 +12,7 @@ class PokemonInfoViewController: UIViewController {
     var presenter: PokemonInfoPresenterProtocol!
     
     private let collectionView = ImagesCollectionView()
-    
-//    private let imageBackgroundView: UIView = {
-//        let view = UIView()
-//        view.layer.cornerRadius = 20
-//        view.backgroundColor = UIColor(named: "CellColor")
-//        return view
-//    }()
-//
-//    private let pokemonImage: UIImageView = {
-//        let image = UIImageView()
-//        return image
-//    }()
-    
+
     private let headerLabel: UILabel = {
         let label = UILabel()
         label.text = "Information"
@@ -91,6 +79,7 @@ class PokemonInfoViewController: UIViewController {
                                         left: view.leftAnchor,
                                         bottom: nil,
                                         right: view.rightAnchor,
+                                        paddingTop: 10,
                                         paddingLeft: 40,
                                         paddingRight: 40,
                                         height: 280)
