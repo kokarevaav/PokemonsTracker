@@ -4,7 +4,7 @@ import UIKit
 protocol PokemonInfoViewProtocol: AnyObject {
     func reloadView()
     func setNoInfoLoadedView()
-    func showAlertMessage(title: String, message: String)
+    func showAlertMessageAndReturn(title: String, message: String)
 }
 
 class PokemonInfoViewController: UIViewController {
@@ -150,10 +150,13 @@ class PokemonInfoViewController: UIViewController {
 }
 
 extension PokemonInfoViewController: PokemonInfoViewProtocol {
-    func showAlertMessage(title: String, message: String) {
+    func showAlertMessageAndReturn(title: String, message: String) {
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-        ac.addAction(ok)
+        let returnAction = UIAlertAction(title: "Try again", style: .cancel, handler: { [unowned self] saveAction -> Void in
+            _ = navigationController?.popToRootViewController(animated: true)
+        })
+    
+        ac.addAction(returnAction)
         DispatchQueue.main.async {
             self.present(ac, animated: true, completion: nil)
         }
