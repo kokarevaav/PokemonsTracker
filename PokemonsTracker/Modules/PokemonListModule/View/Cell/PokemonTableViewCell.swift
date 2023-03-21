@@ -10,12 +10,12 @@ class PokemonTableViewCell: UITableViewCell {
         return view
     }()
     
-//    let isSelectedView: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = UIColor(named: "TextColor")
-//        view.layer.cornerRadius = 10
-//        return view
-//    }()
+    let isSelectedView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "TextColor")
+        view.layer.cornerRadius = 10
+        return view
+    }()
     
     let nameLabel: UILabel = {
         let label = UILabel()
@@ -63,7 +63,7 @@ class PokemonTableViewCell: UITableViewCell {
 
     private func overlayFirstLayer() {
         addSubview(cardView)
-        //addSubview(isSelectedView)
+        addSubview(isSelectedView)
         
         cardView.setPosition(top: topAnchor,
                              left: leftAnchor,
@@ -75,16 +75,16 @@ class PokemonTableViewCell: UITableViewCell {
                              paddingRight: 12,
                              height: 60)
         
-        //isSelectedView.setPosition(top: cardView.topAnchor,
-//                                   left: cardView.leftAnchor,
-//                                   bottom: cardView.bottomAnchor,
-//                                   right: nil,
-//                                   paddingTop: 0,
-//                                   paddingLeft: 0,
-//                                   paddingBottom: 0,
-//                                   paddingRight: 0,
-//                                   width: 5,
-//                                   height: 0)
+        isSelectedView.setPosition(top: cardView.topAnchor,
+                                   left: cardView.leftAnchor,
+                                   bottom: cardView.bottomAnchor,
+                                   right: nil,
+                                   paddingTop: 0,
+                                   paddingLeft: 0,
+                                   paddingBottom: 0,
+                                   paddingRight: 0,
+                                   width: 5,
+                                   height: 0)
     }
 
     private func overlaySecondLayer() {
