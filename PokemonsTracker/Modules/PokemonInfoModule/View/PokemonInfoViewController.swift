@@ -11,17 +11,19 @@ class PokemonInfoViewController: UIViewController {
     
     var presenter: PokemonInfoPresenterProtocol!
     
-    private let imageBackgroundView: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 20
-        view.backgroundColor = UIColor(named: "CellColor")
-        return view
-    }()
+    private let collectionView = ImagesCollectionView()
     
-    private let pokemonImage: UIImageView = {
-        let image = UIImageView()
-        return image
-    }()
+//    private let imageBackgroundView: UIView = {
+//        let view = UIView()
+//        view.layer.cornerRadius = 20
+//        view.backgroundColor = UIColor(named: "CellColor")
+//        return view
+//    }()
+//
+//    private let pokemonImage: UIImageView = {
+//        let image = UIImageView()
+//        return image
+//    }()
     
     private let headerLabel: UILabel = {
         let label = UILabel()
@@ -68,7 +70,8 @@ class PokemonInfoViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "MainColor")
         setUpNavigationItem()
-        setupImage()
+        setUpCollectionView()
+        //setupImage()
         setupLabels()
     }
     
@@ -81,26 +84,16 @@ class PokemonInfoViewController: UIViewController {
         navigationItem.title = "Details:"
     }
     
-    private func setupImage() {
-        view.addSubview(imageBackgroundView)
-        imageBackgroundView.addSubview(pokemonImage)
+    private func setUpCollectionView() {
+        view.addSubview(collectionView)
         
-        imageBackgroundView.setPosition(top: view.safeAreaLayoutGuide.topAnchor,
-                                 left: view.leftAnchor,
-                                 bottom: nil,
-                                 right: view.rightAnchor,
-                                 paddingTop: 0,
-                                 paddingLeft: 40,
-                                 paddingRight: 40,
-                                 height: 280)
-        pokemonImage.setPosition(top: imageBackgroundView.topAnchor,
-                                 left: imageBackgroundView.leftAnchor,
-                                 bottom: imageBackgroundView.bottomAnchor,
-                                 right: imageBackgroundView.rightAnchor,
-                                 paddingTop: 50,
-                                 paddingLeft: 50,
-                                 paddingBottom: 50,
-                                 paddingRight: 50)
+        collectionView.setPosition(top: view.safeAreaLayoutGuide.topAnchor,
+                                        left: view.leftAnchor,
+                                        bottom: nil,
+                                        right: view.rightAnchor,
+                                        paddingLeft: 40,
+                                        paddingRight: 40,
+                                        height: 280)
     }
     
     private func setupLabels() {
@@ -109,7 +102,7 @@ class PokemonInfoViewController: UIViewController {
         view.addSubview(heightLabel)
         view.addSubview(weigthLabel)
         
-        nameLabel.setPosition(top: imageBackgroundView.bottomAnchor,
+        nameLabel.setPosition(top: collectionView.bottomAnchor,
                               left: view.leftAnchor,
                               bottom: nil,
                               right: view.rightAnchor,
@@ -136,7 +129,9 @@ class PokemonInfoViewController: UIViewController {
     }
     
     private func setIbOutlets() {
-        pokemonImage.convertDataToImage(data: presenter.getImageData())
+        collectionView.setImages(images: presenter.getImagesData())
+        collectionView.reloadData()
+
         nameLabel.text! += "           \(presenter.getPokemonName())"
         typeLabel.text! += "             \(presenter.getPokemonType())"
         heightLabel.text! += "          \(presenter.getPokemonHeight()) cm"
@@ -144,7 +139,8 @@ class PokemonInfoViewController: UIViewController {
     }
     
     private func setNoInfoIbOutlets() {
-        pokemonImage.image = UIImage(named: "NoImage")
+        collectionView.setNoImageState()
+        collectionView.reloadData()
     }
     
 }

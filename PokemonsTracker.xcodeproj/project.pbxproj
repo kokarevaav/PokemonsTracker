@@ -12,6 +12,8 @@
 		D9551A9A29C9143A005103BB /* TestCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9551A9929C9143A005103BB /* TestCoreDataManager.swift */; };
 		D9551A9C29C91DB5005103BB /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9551A9B29C91DB5005103BB /* CoreDataStack.swift */; };
 		D9551A9F29C9BCC8005103BB /* TestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9551A9E29C9BCC8005103BB /* TestApiManager.swift */; };
+		D9551AA129CA35B8005103BB /* ImagesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9551AA029CA35B8005103BB /* ImagesCollectionView.swift */; };
+		D9551AA429CA37B8005103BB /* ImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9551AA329CA37B8005103BB /* ImagesCollectionViewCell.swift */; };
 		D958432629C4637300728063 /* ModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D958432529C4637300728063 /* ModuleBuilder.swift */; };
 		D958432929C4B5E200728063 /* PokemonInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D958432829C4B5E200728063 /* PokemonInfoViewController.swift */; };
 		D958432C29C4B5FB00728063 /* PokemonInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D958432B29C4B5FB00728063 /* PokemonInfoPresenter.swift */; };
@@ -51,6 +53,8 @@
 		D9551A9929C9143A005103BB /* TestCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataManager.swift; sourceTree = "<group>"; };
 		D9551A9B29C91DB5005103BB /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		D9551A9E29C9BCC8005103BB /* TestApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestApiManager.swift; sourceTree = "<group>"; };
+		D9551AA029CA35B8005103BB /* ImagesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCollectionView.swift; sourceTree = "<group>"; };
+		D9551AA329CA37B8005103BB /* ImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCollectionViewCell.swift; sourceTree = "<group>"; };
 		D958432529C4637300728063 /* ModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleBuilder.swift; sourceTree = "<group>"; };
 		D958432829C4B5E200728063 /* PokemonInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonInfoViewController.swift; sourceTree = "<group>"; };
 		D958432B29C4B5FB00728063 /* PokemonInfoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonInfoPresenter.swift; sourceTree = "<group>"; };
@@ -128,6 +132,15 @@
 			path = TestApiManager;
 			sourceTree = "<group>";
 		};
+		D9551AA229CA3783005103BB /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				D9551AA029CA35B8005103BB /* ImagesCollectionView.swift */,
+				D9551AA329CA37B8005103BB /* ImagesCollectionViewCell.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
 		D958432729C4B5B400728063 /* PokemonInfoModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +153,7 @@
 		D958432A29C4B5E800728063 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D9551AA229CA3783005103BB /* CollectionView */,
 				D958432829C4B5E200728063 /* PokemonInfoViewController.swift */,
 			);
 			path = View;
@@ -428,10 +442,12 @@
 				D958432C29C4B5FB00728063 /* PokemonInfoPresenter.swift in Sources */,
 				D9DA288B29C20DE90009183A /* AppDelegate.swift in Sources */,
 				D9DA28A629C2F7F90009183A /* PokemonListPresenter.swift in Sources */,
+				D9551AA129CA35B8005103BB /* ImagesCollectionView.swift in Sources */,
 				D9DA28B029C3069E0009183A /* UIViewExtension.swift in Sources */,
 				D9A5507129C736250036556D /* PokemonModel.xcdatamodeld in Sources */,
 				D958432929C4B5E200728063 /* PokemonInfoViewController.swift in Sources */,
 				D958432F29C4F68000728063 /* UIImageViewExtension.swift in Sources */,
+				D9551AA429CA37B8005103BB /* ImagesCollectionViewCell.swift in Sources */,
 				D9DA288D29C20DE90009183A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
